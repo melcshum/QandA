@@ -22,6 +22,13 @@ class Answer extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    public function getCreatedDateAttribute()
+    {
+        // ->format("d/m/Y)
+        return $this->created_at->diffForHumans();
+    }
+
+
     public static function boot(){
         parent::boot();
         static::created (function($answer)
