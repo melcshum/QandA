@@ -30,21 +30,32 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
+    public function getStatusAttribute()
+    {
+        // ->format("d/m/Y)
+        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
+    }
 
-    public static function boot(){
+
+
+    public static function boot()
+    {
         parent::boot();
-        static::created (function($answer)
-        {
+        static::created(function ($answer) {
             // echo 'Answer created\n';
             $answer->question->increment('answers_count');
-       //     $answer->question->save();
+            //     $answer->question->save();
 
         });
-        static::deleted (function($answer)
-        {
+        static::deleted(function ($answer) {
             // echo 'Answer created\n';
-            $answer->question->decrement('answers_count');
-       //     $answer->question->save();
+            $question = $answer->question;
+            $question->decrement('answers_count');
+            if ($question->best_answer_id === $answer->id) {
+                $question->best_answer_id = NULL;
+                $question->save();
+            }
+            //     $answer->question->save();
 
         });
         // static::saved (function($answer)
