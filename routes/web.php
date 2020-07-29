@@ -29,6 +29,9 @@ Route::resource('questions.answers', 'AnswersController')->except(['index', 'cre
 
 Route::post('answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
 
+Route::post('questions/{question}/favorites', 'FavoritesController@store')->name('questions.favorite');
+Route::delete('questions/{question}/favorites', 'FavoritesController@destory')->name('questions.unfavorite');
+
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
