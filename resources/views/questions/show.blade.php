@@ -19,15 +19,29 @@
                         <hr>
                         <div class="media">
                             <div class="d-fex flex-column vote-controls">
-                                <a title="This question is useful" class="vote-up">
-                                    <i class="fas fa-caret-up fa-3x"></i>
+                                <a title="This question is useful" class="vote-up  {{ Auth::guest() ? 'off' : '' }}"
+                                    onclick="event.preventDefault(); document.getElementById('up-vote-question-{{ $question->id }}').submit()">
+                                    <i class=" fas fa-caret-up fa-3x"></i>
                                 </a>
-                                <span class="vote-count">1234</span>
-                                <a title="This question is not useful" class="vote-down off">
+                                <form id="up-vote-question-{{ $question->id }}" method="POST" style="display:none;"
+                                    action="/questions/{{ $question->id }}/vote">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="1">
+                                </form>
+
+                                <span class="vote-count">{{ $question->votes_count }}</span>
+                                <a title="This question is not useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}"
+                                    onclick="event.preventDefault(); document.getElementById('down-vote-question-{{ $question->id }}').submit()">
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
-                                <a title="Click to mask as favorite question (click again to undo)" class="favorite mt-2
-                                            {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '') }}"
+                                <form id="down-vote-question-{{ $question->id }}" method="POST" style="display:none;"
+                                    action="/questions/{{ $question->id }}/vote">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="-1">
+                                </form>
+
+                                <a title="Click to mask as favorite question (click again to undo)"
+                                    class="favorite mt-2  {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '') }}"
                                     onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit()">
                                     <i class="fas fa-star fa-2x"></i>
                                 </a>
