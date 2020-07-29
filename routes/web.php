@@ -25,9 +25,12 @@ Route::get('questions/{slug}', 'QuestionsController@show')->name('questions.show
 
 //Route::post('questions/{question}/answers', 'AnswersController@store')->name('answers.store');
 
-Route::resource('questions.answers', 'AnswersController')->except(['index', 'create', 'show' ]);
-Route::get('/clear-cache', function() {
+Route::resource('questions.answers', 'AnswersController')->except(['index', 'create', 'show']);
+
+Route::post('answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
+
+
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     return "Cache is cleared";
 });
-
