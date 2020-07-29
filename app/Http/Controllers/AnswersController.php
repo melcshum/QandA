@@ -59,7 +59,7 @@ class AnswersController extends Controller
                 'body' => 'required'
             ])
          );
-         return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has updated successfully');
+         return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated successfully');
     }
 
     /**
@@ -68,8 +68,15 @@ class AnswersController extends Controller
      * @param  \App\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Answer $answer)
+    public function destroy(Question $question, Answer $answer)
     {
         //
+
+
+        $this->authorize("delete", $answer);
+
+        $answer->delete();
+       // return redirect()->route('questions.show', $question->slug)->with('success',  "Your answer has been deleted.");
+       return back()->with('success',  "Your answer has been deleted.");
     }
 }

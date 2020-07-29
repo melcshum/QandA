@@ -37,7 +37,14 @@ class Answer extends Model
         {
             // echo 'Answer created\n';
             $answer->question->increment('answers_count');
-            $answer->question->save();
+       //     $answer->question->save();
+
+        });
+        static::deleted (function($answer)
+        {
+            // echo 'Answer created\n';
+            $answer->question->decrement('answers_count');
+       //     $answer->question->save();
 
         });
         // static::saved (function($answer)
