@@ -97,7 +97,6 @@ class Question extends Model
 
     public function downVotes()
     {
-
         return   $this->votes()->wherePivot('vote', -1);
     }
 }

@@ -35,6 +35,7 @@ Route::delete('questions/{question}/favorites', 'FavoritesController@destory')->
 // Singe Action Controller
 Route::post('questions/{question}/vote', 'VoteQuestionController')->name('questions.vote');
 
+Route::post('answers/{answer}/vote', 'VoteAnswerController')->name('answers.vote');
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
