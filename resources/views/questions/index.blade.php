@@ -20,11 +20,12 @@
 
                         @include ('layouts._messages')
 
-                        @foreach($questions as $question)
+                        @foreach ($questions as $question)
                             <div class="media">
                                 <div class="d-flex flex-column counters">
                                     <div class="vote">
-                                        <strong>{{ $question->votes_count }}</strong> {{ str_plural('vote', $question->votes_count) }}
+                                        <strong>{{ $question->votes_count }}</strong>
+                                        {{ str_plural('vote', $question->votes_count) }}
                                     </div>
                                     <div class="status {{ $question->status }}">
                                         <strong>{{ $question->answers_count }}</strong>
@@ -39,7 +40,7 @@
                                         <h3 class="mt-0"><a href="{{ $question->url }}">{{ $question->title }}</a></h3>
 
                                         @can('update', $question)
-                                             <div class="ml-auto">
+                                            <div class="ml-auto">
                                                 <a href="{{ route('questions.edit', $question->id) }}"
                                                     class="btn btn-sm btn-outline-info">Edit</a>
                                             </div>
@@ -60,7 +61,9 @@
                                         <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
                                         <small class="text-muted">{{ $question->created_date }}</small>
                                     </p>
-                                    {{ str_limit($question->body, 500) }}
+                                    <div class="excerpt">
+                                        {{ $question->excerpt(200) }}
+                                    </div>
                                 </div>
                             </div>
                             <hr>
