@@ -51540,7 +51540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     update: function update() {
       var _this = this;
 
-      axios.patch("/questions/" + this.questionId + "/answers/" + this.id, {
+      axios.patch(this.endpoint, {
         body: this.body
       }).then(function (res) {
         console.log(res);
@@ -51551,11 +51551,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log("yyyy" + err);
         alert("xxxxxx" + err.response);
       });
+    },
+    destory: function destory() {
+      var _this2 = this;
+
+      if (confirm("Are you sure")) {
+        axios.delete(this.endpoint).then(function (res) {
+          $(_this2.$el).fadeOut(500, function () {
+            alert(res.data.message);
+          });
+        }).catch(function (err) {
+          alert("delete error");
+        });
+      }
     }
   },
   computed: {
     isInvalid: function isInvalid() {
       return this.body.length < 10;
+    },
+    endpoint: function endpoint() {
+      return "/questions/" + this.questionId + "/answers/" + this.id;
     }
   }
 });
