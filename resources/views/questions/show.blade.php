@@ -39,11 +39,11 @@
             </div>
         </div>
         {{-- @include('answers._index', [
-                'answers'=>$question->answers,
-                'answersCount'=> $question->answers_count,
-                ]) --}}
-                <answers :answers="{{ $question->answers }}" :count="{{ $question->answers_count }}"></answers>
-        {{-- <answers :answers={{ $question->answers }} :count={{ $question->answers_count }}></answers> --}}
+                    'answers'=>$question->answers,
+                    'answersCount'=> $question->answers_count,
+                    ]) --}}
+        <answers :question="{{ $question }}"></answers>
+
         @include('answers._create' )
     </div>
 @endsection
