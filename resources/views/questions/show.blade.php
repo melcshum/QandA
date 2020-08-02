@@ -18,7 +18,9 @@
                         </div>
                         <hr>
                         <div class="media">
-                            @include('shared._vote', ['model'=>$question])
+
+
+                            <vote :model="{{ $question }}" name="question"></vote>
                             @include('shared._accept',
                             [ 'model'=> $question])
                             <div class="media-body">
@@ -27,7 +29,7 @@
                                     <div class="col-4"></div>
                                     <div class="col-4"></div>
                                     <div class="col-4">
-                                        <user-info :model="{{ $question }}" label="asked" ></user-info>
+                                        <user-info :model="{{ $question }}" label="asked"></user-info>
                                     </div>
                                 </div>
                             </div>

@@ -7,18 +7,25 @@ use App\Answer;
 
 class VoteAnswerController extends Controller
 {
-      //
-      public function __construct()
-      {
-          $this->middleware('auth');
-      }
+    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-      public function __invoke(Answer $answer)
-      {
-          $vote = (int) request()->vote;
-          $user = auth()->user();
+    public function __invoke(Answer $answer)
+    {
+        $vote = (int) request()->vote;
+        $user = auth()->user();
 
-          $user->voteAnswer($answer, $vote);
-          return back();
-      }
+        $voteCount = $user->voteAnswer($answer, $vote);
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'message' => 'Thanks for the feedback',
+                'votesCount' => $voteCount
+            ]);
+        }
+        return back();
+    }
 }
