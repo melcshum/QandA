@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -14,6 +13,9 @@ window.Vue = require('vue');
 import VueIziToast from 'vue-izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 Vue.use(VueIziToast);
+
+import Authorization from './authorization/authorize';
+Vue.use(Authorization);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
