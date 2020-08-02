@@ -10,7 +10,7 @@ class Answer extends Model
 
     protected $fillable = ['body', 'user_id'];
 
-    protected $appends = ['created_date', 'body_html'];
+    protected $appends = ['created_date', 'body_html', 'is_best'];
     //
     public function question()
     {
@@ -36,7 +36,7 @@ class Answer extends Model
     public function getStatusAttribute()
     {
         // ->format("d/m/Y)
-        return $this->isBest ? 'vote-accepted' : '';
+        return $this->isBest() ? 'vote-accepted' : '';
     }
 
 
