@@ -7,7 +7,7 @@
             <h2>{{ title }}</h2>
           </div>
           <hr />
-          <answer v-for="answer in answers" :answer="answer" :key="answer.id"></answer>
+          <answer @deleted="remove(index)" v-for="(answer, index) in answers" :answer="answer" :key="answer.id"></answer>
 
           <div class="text-center mt-3" v-if="nextUrl">
             <button
@@ -42,6 +42,11 @@ export default {
     this.fetch(`/questions/${this.questionId}/answers`);
   },
   methods: {
+    remove(index){
+        // remove one item from the array
+        this.answers.splice(index, 1);
+        this.count--;
+    },
     fetch(endpoint) {
       axios.get(endpoint).then(({ data }) => {
         // this ... is pushing every element of an array into array

@@ -53083,6 +53083,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   },
 
   methods: {
+    remove: function remove(index) {
+      // remove one item from the array
+      this.answers.splice(index, 1);
+      this.count--;
+    },
     fetch: function fetch(endpoint) {
       var _this = this;
 
@@ -53200,7 +53205,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["answer"],
 
@@ -53255,12 +53259,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         position: "center",
         buttons: [["<button><b>YES</b></button>", function (instance, toast) {
           axios.delete(_this2.endpoint).then(function (res) {
-            $(_this2.$el).fadeOut(500, function () {
-              //  alert(res.data.message);
-              _this2.$toast.success(res.data.message, "Success", {
-                timeout: 3000
-              });
-            });
+            _this2.$emit('deleted');
           }).catch(function (err) {
             alert("delete error");
           });
@@ -53443,10 +53442,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
                     key: answer.id,
-                    attrs: { answer: answer }
+                    attrs: { answer: answer },
+                    on: {
+                      deleted: function($event) {
+                        return _vm.remove(index)
+                      }
+                    }
                   })
                 }),
                 _vm._v(" "),
