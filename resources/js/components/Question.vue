@@ -25,7 +25,7 @@
             <div class="d-flex align-items-center">
               <h1>{{ title }}</h1>
               <div class="ml-auto">
-                <a href="/question" class="btn btn-outline-secondary">
+                <a href="/questions" class="btn btn-outline-secondary">
                   Back to all
                   Questions
                 </a>
