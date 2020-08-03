@@ -10,7 +10,8 @@ use App\Http\Requests\AskQuestionRequest;
 class QuestionsController extends Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -94,6 +95,14 @@ class QuestionsController extends Controller
 
         $question->update($request->only('title', 'body'));
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => "Your question has been updated.",
+                'body_html' => $question->body_html,
+                'title' => $question->title,
+            ]);
+        }
+
         return redirect('/questions')->with('success', "Your question has been updated.");
     }
 
@@ -109,6 +118,13 @@ class QuestionsController extends Controller
         $this->authorize("delete", $question);
 
         $question->delete();
+
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'message' => "Your question has been deleted.",
+            ]);
+        }
 
         return redirect('/questions')->with('success', "Your question has been deleted.");
     }

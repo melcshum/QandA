@@ -21,13 +21,12 @@
                 @click.prevent="edit"
                 class="btn btn-sm btn-outline-info"
               >Edit</a>
+              <button
+                v-if="authorize('modify', answer)"
+                @click="destory"
+                class="btn btn-sm btn-outline-danger"
+              >Delete</button>
             </div>
-
-            <button
-              v-if="authorize('modify', answer)"
-              @click="destory"
-              class="btn btn-sm btn-outline-danger"
-            >Delete</button>
           </div>
           <div class="col-4"></div>
           <div class="col-4">
@@ -40,9 +39,15 @@
 </template>
 
 <script>
+import Vote from "./Vote.vue";
+import UserInfo from "./UserInfo.vue";
+
 export default {
   props: ["answer"],
-
+  components: {
+    Vote,
+    UserInfo,
+  },
   data() {
     return {
       editing: false,
@@ -98,7 +103,7 @@ export default {
               axios
                 .delete(this.endpoint)
                 .then((res) => {
-                    this.$emit('deleted');
+                  this.$emit("deleted");
                 })
                 .catch((err) => {
                   alert("delete error");
