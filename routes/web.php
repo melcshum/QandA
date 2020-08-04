@@ -23,7 +23,7 @@ Route::middleware('verified')->group(
 
         Route::resource('questions', 'QuestionsController')->except(['show', 'index'] );
         //Route::post('questions/{question}/answers', 'AnswersController@store')->name('answers.store');
-        Route::resource('questions.answers', 'AnswersController')->except(['create', 'show']);
+        Route::resource('questions.answers', 'AnswersController')->except(['create', 'show', 'index']);
 
         Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
 
@@ -40,6 +40,7 @@ Route::middleware('verified')->group(
 
 Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.show');
 Route::get('/questions', 'QuestionsController@index')->name('questions.index');
+Route::get('/questions/{question}/answers', 'AnswersController@index')->name('questions.answers.index');
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
