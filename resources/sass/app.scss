@@ -7,6 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+body {
+    background: #f5f8fa;
+}
 
 .counters {
     margin-right: 30px;
@@ -105,5 +108,5 @@ form.form-delete {
 }
 
 [v-cloak] {
-    display:none;
+    display: none;
 }

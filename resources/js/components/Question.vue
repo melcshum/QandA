@@ -11,7 +11,9 @@
             <div class="media-body">
               <form @submit.prevent="update">
                 <div class="form-group">
-                  <textarea class="form-control" v-model="body" cols="80" rows="10" required></textarea>
+                  <m-editor :body="body">
+                    <textarea class="form-control" v-model="body" cols="80" rows="10" required></textarea>
+                  </m-editor>
                 </div>
                 <button class="btn btn-primary" :disabled="isInvalid">Update</button>
                 <button class="btn btn-outline-secondary" type="button" @click="cancel">Cancal</button>
@@ -69,6 +71,7 @@
 <script>
 import Vote from "./Vote.vue";
 import UserInfo from "./UserInfo.vue";
+import MEditor from "./MEditor.vue";
 import modification from "../mixins/modification.js";
 
 export default {
@@ -79,6 +82,7 @@ export default {
   components: {
     Vote,
     UserInfo,
+    MEditor,
   },
   data() {
     return {
